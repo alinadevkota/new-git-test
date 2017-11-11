@@ -57,5 +57,42 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="phone" />
-    </LinearLayout>
+        <Button
+            android:id="@+id/see_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="see map"/>
+        <Button
+            android:id="@+id/plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+"/>
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/tvname"
+           android:text="Name: "/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvphone"
+                android:text="Phone:"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvmail"
+                android:text="Email:"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:id="@+id/btn"
+                android:text="Select contact" />
+
+        </LinearLayout>
+
+
 </android.support.constraint.ConstraintLayout>

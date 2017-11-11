@@ -1,12 +1,18 @@
 package com.aarakshya.testgps;
 
 import android.*;
+import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
+import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +23,8 @@ import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,9 +35,11 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 
+import static android.R.attr.id;
+
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
 
-
+    private Window wind;
     private static final String TAG = "MainActivity";
     private TextView mLatitudeTextView;
     private TextView mLongitudeTextView;
@@ -42,8 +52,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private long FASTEST_INTERVAL = 2000; /* 2 sec */
 
     private LocationManager locationManager;
+    double lat,lang;
+
     String url; ///global bana ktha xa ahha
 
+    private Button btn;
+    private TextView tvname, tvphone,tvmail;
+
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
 
         Button button = (Button) findViewById(R.id.sms_button);
+        Button b1=(Button) findViewById(R.id.see_map);
+        Button b2=(Button) findViewById(R.id.plus2);
         button.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
@@ -65,6 +83,46 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             }
         });
 
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              //  SharedPreferences.Editor editor = getSharedPreferences("myfile",MODE_PRIVATE).edit();
+              //  editor.putFloat("lat",lat);
+
+                Intent intent= new Intent(MainActivity.this,MapsActivity.class);
+                Bundle b = new Bundle();
+                b.putDouble("lat", lat);
+                b.putDouble("lang",lang);
+                intent.putExtras(b);
+              //  intent.putExtra("lat",lat);
+              //  intent.putExtra("lang",lang);
+              //  Toast.makeText(MainActivity.this,""+lat+" "+lang,Toast.LENGTH_SHORT).show();
+                startActivity(intent);
+            }
+        });
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        btn = (Button) findViewById(R.id.btn);
+
+        tvname = (TextView) findViewById(R.id.tvname);
+        tvphone = (TextView) findViewById(R.id.tvphone);
+        tvmail = (TextView) findViewById(R.id.tvmail);
+
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                startActivityForResult(intent, 1);
+            }
+        });
+
+
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -73,7 +131,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         mLocationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
 
+
+
     }
+
+
+
+
+
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
@@ -158,8 +223,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         // You can now create a LatLng Object for use with maps
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
-        double lat=location.getLatitude();
-        double lang= location.getLongitude() ;
+         lat=location.getLatitude();
+         lang= location.getLongitude() ;
          url = "http://maps.google.com/maps?q="+ lat+ ","+lang ;
 
 
@@ -198,4 +263,79 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
                 locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            Uri contactData = data.getData();
+            Cursor c =  getContentResolver().query(contactData, null, null, null, null);
+            if (c.moveToFirst()) {
+
+                String phoneNumber="",emailAddress="";
+                String name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                String contactId = c.getString(c.getColumnIndex(ContactsContract.Contacts._ID));
+                //http://stackoverflow.com/questions/866769/how-to-call-android-contacts-list   our upvoted answer
+
+                String hasPhone = c.getString(c.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+
+                if ( hasPhone.equalsIgnoreCase("1"))
+                    hasPhone = "true";
+                else
+                    hasPhone = "false" ;
+
+                if (Boolean.parseBoolean(hasPhone))
+                {
+                    Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = "+ contactId,null, null);
+                    while (phones.moveToNext())
+                    {
+                        phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                    }
+                    phones.close();
+                }
+
+                // Find Email Addresses
+                Cursor emails = getContentResolver().query(ContactsContract.CommonDataKinds.Email.CONTENT_URI,null,ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = " + contactId,null, null);
+                while (emails.moveToNext())
+                {
+                    emailAddress = emails.getString(emails.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+                }
+                emails.close();
+
+                //mainActivity.onBackPressed();
+                // Toast.makeText(mainactivity, "go go go", Toast.LENGTH_SHORT).show();
+
+                tvname.setText("Name: "+name);
+                tvphone.setText("Phone: "+phoneNumber);
+                tvmail.setText("Email: "+emailAddress);
+                Log.d("curs", name + " num" + phoneNumber + " " + "mail" + emailAddress);
+            }
+            c.close();
+        }
+    }
+
+
+
+
+
+//    public class VolumeChangeReceiver extends BroadcastReceiver {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            if (intent.getAction().equals("android.media.VOLUME_CHANGED_ACTION")) {
+//                int newVolume = intent.getIntExtra("android.media.EXTRA_VOLUME_STREAM_VALUE", 0);
+//                int oldVolume = intent.getIntExtra("android.media.EXTRA_PREV_VOLUME_STREAM_VALUE", 0);
+//                if (newVolume != oldVolume) {
+//                    Intent i = new Intent();
+//                    i.setClass(context, MainActivity.class);
+//                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    context.startActivity(i);
+//                }
+//            }
+//        }
+//    }
+
+
+
+
+
 }
