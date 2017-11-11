@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         Button button = (Button) findViewById(R.id.sms_button);
         Button b1=(Button) findViewById(R.id.see_map);
-        Button b2=(Button) findViewById(R.id.plus2);
+        Button b2=(Button) findViewById(R.id.login);
         button.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
@@ -90,12 +90,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
               //  editor.putFloat("lat",lat);
 
                 Intent intent= new Intent(MainActivity.this,MapsActivity.class);
-                Bundle b = new Bundle();
-                b.putDouble("lat", lat);
-                b.putDouble("lang",lang);
-                intent.putExtras(b);
-              //  intent.putExtra("lat",lat);
-              //  intent.putExtra("lang",lang);
+                String x= String.valueOf(lat);
+                String y = String.valueOf(lang);
+                                          intent.putExtra("lat",x); //ho diyau gaala futney  garlat ik ho lat k ho? double ho eh eh
+                intent.putExtra("lang",y);
               //  Toast.makeText(MainActivity.this,""+lat+" "+lang,Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
@@ -103,6 +101,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent= new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(intent);
 
             }
         });
