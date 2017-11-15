@@ -33,17 +33,17 @@ public class Form extends AppCompatActivity {
         });
 
 
-        addbtn1 = (Button) findViewById(R.id.form_addbtn1);
-        addbtn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-                startActivityForResult(intent, 1);
-            }
-        });
+//        addbtn1 = (Button) findViewById(R.id.form_addbtn1);
+//        addbtn1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+//                startActivityForResult(intent, 1);
+//            }
+//        });
 
-        nametv1 = (TextView) findViewById(R.id.form_name1);
-        numbertv1 = (TextView) findViewById(R.id.form_contact1);
+      //  nametv1 = (TextView) findViewById(R.id.form_name1);
+       // numbertv1 = (TextView) findViewById(R.id.form_contact1);
     }
 
     @Override

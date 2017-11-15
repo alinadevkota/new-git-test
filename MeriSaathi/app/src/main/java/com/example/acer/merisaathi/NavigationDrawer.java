@@ -76,7 +76,7 @@ public class NavigationDrawer extends AppCompatActivity
                 smsManager.sendTextMessage("9843538576", null, "Your Friend is in need. See her location at "+ url, null, null);
             }
         });
-        Button b2=(Button) findViewById(R.id.Navigation_b2);
+        FloatingActionButton b2=(FloatingActionButton) findViewById(R.id.Navigation_b2);
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

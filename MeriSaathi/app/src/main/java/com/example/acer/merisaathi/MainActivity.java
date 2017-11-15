@@ -80,13 +80,23 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         Log.d(LOG_TAG, "OnCreate");
 
 
+        Button demo=(Button)findViewById(R.id.demo);
+        demo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,Form.class);
+                startActivity(intent);
+            }
+        });
+
+
         String readfilename = "email.txt";
         FileOperations fop = new FileOperations();
         String text = fop.read(readfilename);
         if(text!=null){
             Toast.makeText(MainActivity.this,text, Toast.LENGTH_SHORT).show();
             Intent intent=new Intent(MainActivity.this,NavigationDrawer.class);
-            startActivity(intent);
+          //  startActivity(intent);
         }
 
 
@@ -138,6 +148,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,Form.class);
+
+                startActivity(intent);
                 Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
                 startActivityForResult(signInIntent, SIGN_IN);
 

@@ -10,38 +10,108 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/gradientbg2"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.acer.merisaathi.NavigationDrawer"
     tools:showIn="@layout/app_bar_navigation_drawer">
 
+<!--<ImageButton-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:src="@drawable/download2"-->
+    <!--android:layout_gravity="center_horizontal"-->
+    <!--android:background="@android:drawable/screen_background_light_transparent" />-->
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fab"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom|end"-->
+        <!--android:layout_margin="@dimen/fab_margin"-->
+        <!--app:srcCompat="@android:drawable/ic_dialog_email" />-->
+
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/Navigation_b1"
-        android:text="Emergency"/>
-    <Button
+        style="?android:textAppearanceSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/Navigation_b2"
-        android:text="Tips"/>
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/emergency2"
+        android:textStyle="bold"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp">
+
+
+        <android.support.design.widget.FloatingActionButton
+    android:id="@+id/Navigation_b2"
+    style="?android:textAppearanceSmall"
+    android:layout_width="70dp"
+    android:layout_height="70dp"
+            app:srcCompat="@drawable/tips2"
+    android:textStyle="bold"
+        android:layout_marginRight="50dp"/>
+
+        <Button
+    android:id="@+id/Navigation_b3"
+    style="?android:textAppearanceSmall"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/discussionforum2"
+    android:textStyle="bold"
+    android:layout_marginLeft="50dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="15dp">
+
+
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Navigation_b3"
-        android:text="Discussion forum" />
+    android:id="@+id/Navigation_b4"
+    style="?android:textAppearanceSmall"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/quiz2"
+
+    android:textStyle="bold"
+    android:layout_marginRight="20dp"/>
+
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Navigation_b4"
-        android:text="Online quiz"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/Navigation_b5"
-        android:text="see nearby police stations"/>
-    <Button
+        style="?android:textAppearanceSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/cycletracker2"
+        android:textStyle="bold"
+        android:layout_marginLeft="20dp"/>
+
+
+    </LinearLayout>
+    <!--android:text="Cycle Trackerr"-->
+    <Button
         android:id="@+id/Navigation_b6"
-        android:text="calendar"/>
+        style="?android:textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="See nearby police stations"
+        android:gravity="bottom"
+        android:textStyle="bold"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"/>
+
+
 </LinearLayout>
