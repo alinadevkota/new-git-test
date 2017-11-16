@@ -36,7 +36,9 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class NavigationDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener  {
+    Database db;
 
+    User[] trusted=new User[10];
 
     private static final String TAG = "NavigationDrawer";
     private TextView mLatitudeTextView;
@@ -63,7 +65,12 @@ public class NavigationDrawer extends AppCompatActivity
         setContentView(R.layout.activity_navigation_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        db =new Database(this);
+        for (int i=0;i<5;i++)
+        {
+            int my=i+1;
+            trusted[i]=db.getdata(my);
+        }
         Button b1=(Button) findViewById(R.id.Navigation_b1);
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,9 +78,13 @@ public class NavigationDrawer extends AppCompatActivity
                // Intent intent=new Intent(NavigationDrawer.this,Emergency_Button.class);
                // startActivity(intent);
 
-                Toast.makeText(NavigationDrawer.this, url, Toast.LENGTH_LONG).show();
+                for (int i=0;i<5;i++)
+                {
+                    Toast.makeText(NavigationDrawer.this, trusted[i].number, Toast.LENGTH_LONG).show();
+                }
+               // Toast.makeText(NavigationDrawer.this, url, Toast.LENGTH_LONG).show();
                 SmsManager smsManager = SmsManager.getDefault();
-                smsManager.sendTextMessage("9843538576", null, "Your Friend is in need. See her location at "+ url, null, null);
+               //smsManager.sendTextMessage(trusted[0].number, null, "Your Friend is in need. See her location at "+ url, null, null);
             }
         });
         FloatingActionButton b2=(FloatingActionButton) findViewById(R.id.Navigation_b2);
@@ -154,12 +165,17 @@ public class NavigationDrawer extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+        moveTaskToBack(false);
+        Intent intent1 = new Intent();
+        intent1.setAction(Intent.ACTION_MAIN);
+        intent1.addCategory(Intent.CATEGORY_HOME);
+        startActivity(intent1);
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        if (drawer.isDrawerOpen(GravityCompat.START)) {
+//            drawer.closeDrawer(GravityCompat.START);
+//        } else {
+//            super.onBackPressed();
+//        }
     }
 
     @Override
@@ -339,6 +355,7 @@ public class NavigationDrawer extends AppCompatActivity
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
                 locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
+
 
 }
 

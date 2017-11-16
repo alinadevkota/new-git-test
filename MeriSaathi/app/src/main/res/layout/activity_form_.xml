@@ -225,6 +225,43 @@
                     android:text="others"/>
 
             </RadioGroup>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25sp"
+                    android:id="@+id/form_contacts1"
+                    android:hint="select contact"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25sp"
+                    android:id="@+id/form_contacts2"
+                    android:hint="select contact"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25sp"
+                    android:id="@+id/form_contacts3"
+                    android:hint="select contact"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25sp"
+                    android:id="@+id/form_contacts4"
+                    android:hint="select contact"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25sp"
+                    android:id="@+id/form_contacts5"
+                    android:hint="select contact"/>
+
+            </LinearLayout>
 
 
             <Button
@@ -477,29 +514,7 @@
                 <!--android:layout_marginLeft="15dp"-->
                 <!--android:text="Add Trusted Contacts"/>-->
 
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:gravity="right"-->
-                    <!--android:orientation="horizontal">-->
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:id="@+id/form_contact1"/>-->
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:id="@+id/form_name1"/>-->
 
-                    <!--<Button-->
-                        <!--android:id="@+id/form_addbtn1"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:background="@android:color/transparent"-->
-                        <!--android:text="+"-->
-                        <!--android:textSize="75dp"/>-->
-
-                <!--</LinearLayout>-->
 
             <!--<LinearLayout-->
                 <!--android:layout_width="match_parent"-->

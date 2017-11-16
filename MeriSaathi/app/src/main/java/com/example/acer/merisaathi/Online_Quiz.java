@@ -13,7 +13,7 @@ public class Online_Quiz extends AppCompatActivity {
     Button button1;
     String TO, SUBJECT, MESSAGE ;
     Intent intent ;
-    int count=0;
+    int count=50;
     int score=0;
     RadioButton option1_3;
     RadioButton option2_2;
@@ -41,7 +41,7 @@ public class Online_Quiz extends AppCompatActivity {
                 while (!isInterrupted()) {
                     try {
                         Thread.sleep(1000);
-                        if (count >= 150) {
+                        if (count <= 0) {
                             throw new InterruptedException();
 
                         }
@@ -49,7 +49,7 @@ public class Online_Quiz extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                count++;
+                                count--;
                                 textView.setText(String.valueOf(count));
                                 button1.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -71,17 +71,21 @@ public class Online_Quiz extends AppCompatActivity {
 
 
 
-                                        GetData(score);
-
-                                        intent = new Intent(Intent.ACTION_SEND);
-
-                                        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{TO});
-                                        intent.putExtra(Intent.EXTRA_SUBJECT, SUBJECT);
-                                        intent.putExtra(Intent.EXTRA_TEXT, MESSAGE);
-
-                                        intent.setType("message/rfc822");
-
-                                        startActivity(Intent.createChooser(intent, "Select Email Sending App :"));
+                                        String message=" "+score;
+                                        intent=new Intent(Online_Quiz.this,score_show.class);
+                                        intent.putExtra("message", message);
+                                        startActivity(intent);
+//                                        GetData(score);
+//
+//                                        intent = new Intent(Intent.ACTION_SEND);
+//
+//                                        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{TO});
+//                                        intent.putExtra(Intent.EXTRA_SUBJECT, SUBJECT);
+//                                        intent.putExtra(Intent.EXTRA_TEXT, MESSAGE);
+//
+//                                        intent.setType("message/rfc822");
+//
+//                                        startActivity(Intent.createChooser(intent, "Select Email Sending App :"));
 
                                     }
                                 });
@@ -93,6 +97,7 @@ public class Online_Quiz extends AppCompatActivity {
                         });
                     } catch (InterruptedException e) {
                         interrupt();
+
 
                         e.printStackTrace();
                     }
@@ -109,12 +114,16 @@ public class Online_Quiz extends AppCompatActivity {
 
 
     }
-    public void GetData(int score){
-
-        TO = "devkota.alina@gmail.com";
-        SUBJECT = "merisaathi online quiz";
-       // String str=toString(score);
-        MESSAGE = "score";
-
+//    public void GetData(int score){
+//
+//        TO = "devkota.alina@gmail.com";
+//        SUBJECT = "merisaathi online quiz";
+//       // String str=toString(score);
+//        MESSAGE = " "+score+" ";
+//
+//    }
+    @Override
+    public void onBackPressed(){
+    moveTaskToBack(false);
     }
 }
