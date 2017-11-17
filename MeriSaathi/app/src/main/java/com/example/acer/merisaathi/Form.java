@@ -1,8 +1,12 @@
 package com.example.acer.merisaathi;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
@@ -10,18 +14,25 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.util.Calendar;
 
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Form extends AppCompatActivity {
 
-    Database db;
-    User[] user=new User[5];
+   // Database db;
+   // User[] user=new User[5];
   //  User user=new User();
+   DatePickerDialog.OnDateSetListener mDateSetListener;
     Button addbtn1, addbtn2, addbtn3, addbtn4, addbtn5, addbtn6;
+    TextView tvdate,tvperiod;
+    int year1,month1,day1,year,month,day;
+    static  final int Dialog_ID=0;
     TextView[] tv=new TextView[5];
    public static int i=-1;
     String[] names=new String[5];
@@ -37,7 +48,40 @@ public class Form extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_);
-        db =new Database(this);
+
+        final Calendar cal=Calendar.getInstance();
+        year=cal.get(Calendar.YEAR);
+        month=cal.get(Calendar.MONTH);
+        day=cal.get(Calendar.DAY_OF_MONTH);
+        showDialogOnClick();
+
+
+        tvdate=(TextView)findViewById(R.id.form_datetv);
+        tvdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                java.util.Calendar cal1= java.util.Calendar.getInstance();
+                year1=cal1.get(java.util.Calendar.YEAR);
+                month1=cal1.get(java.util.Calendar.MONTH);
+                day1=cal1.get(java.util.Calendar.DAY_OF_MONTH);
+                DatePickerDialog dialog1=new DatePickerDialog(Form.this,android.R.style.Theme_Holo_Light_Dialog_NoActionBar,mDateSetListener,year1,month1,day1);
+                dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog1.show();
+            }
+        });
+        mDateSetListener=new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                year1=i;
+                month1=i1+1;
+                day1=i2;
+                Toast.makeText(Form.this,""+year1+"/"+month1+"/"+day1,Toast.LENGTH_SHORT).show();
+                String date=""+year1+"/"+month1+"/"+day1;
+                tvdate.setText(""+year1+"/"+month1+"/"+day1);
+
+            }
+        };
+       // db =new Database(this);
         Button submitButton = (Button) findViewById(R.id.formsubmitButton);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +113,7 @@ public class Form extends AppCompatActivity {
         tv[4]=(TextView)findViewById(R.id.form_contacts5);
 //        for (int g=0;g<5;g++)
 //        {
+
 //            tv[g].setText("Name: "+names[g]+" Mobile No.: "+numbers[g]);
 //        }
         tv[0].setOnClickListener(new View.OnClickListener() {
@@ -133,6 +178,32 @@ public class Form extends AppCompatActivity {
      //   numbertv1 = (TextView) findViewById(R.id.form_contact1);
 
     }
+
+    public void showDialogOnClick(){
+       tvperiod=(TextView)findViewById(R.id.form_datetv2);
+       tvperiod.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog(Dialog_ID);
+            }
+        });
+    }
+    @Override
+    protected Dialog onCreateDialog(int id){
+        if (id== Dialog_ID)
+            return new DatePickerDialog(this,dpicker,year,month,day);
+        return null;
+    }
+    private DatePickerDialog.OnDateSetListener dpicker=new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+            year=i;
+            month=i1+1;
+            day=i2;
+            tvperiod.setText(""+year+"/"+month+"/"+day);
+            Toast.makeText(Form.this,""+year+"/"+month+"/"+day,Toast.LENGTH_SHORT).show();
+        }
+    };
 
 
     @Override
@@ -229,13 +300,13 @@ public class Form extends AppCompatActivity {
 
         CharSequence user1=savedInstanceState.getCharSequence("user1");
         tv[0].setText(user1);
-        String user11=user1.toString();
-        Pattern pattern = Pattern.compile(":");
-        Matcher matcher = pattern.matcher(user11);
-        if (matcher.find()) {
-            parts[0] = user11.substring(0, matcher.start());
-            parts[1] = user11.substring(matcher.end());
-        }
+//        String user11=user1.toString();
+//        Pattern pattern = Pattern.compile(":");
+//        Matcher matcher = pattern.matcher(user11);
+//        if (matcher.find()) {
+//            parts[0] = user11.substring(0, matcher.start());
+//            parts[1] = user11.substring(matcher.end());
+//        }
 
 
 
@@ -246,13 +317,13 @@ public class Form extends AppCompatActivity {
         String user21=user2.toString();
 //        String[] parts2 = user21.split("\\:"); // escape .
 
-        Pattern pattern2 = Pattern.compile(":");
-        Matcher matcher2 = pattern2.matcher(user21);
-        if (matcher2.find()) {
-            parts2[0] = user21.substring(0, matcher2.start());
-            parts2[1] = user21.substring(matcher2.end());
-        }
-
+//        Pattern pattern2 = Pattern.compile(":");
+//        Matcher matcher2 = pattern2.matcher(user21);
+//        if (matcher2.find()) {
+//            parts2[0] = user21.substring(0, matcher2.start());
+//            parts2[1] = user21.substring(matcher2.end());
+//        }
+//
 
 
         CharSequence user3=savedInstanceState.getCharSequence("user3");
@@ -261,12 +332,12 @@ public class Form extends AppCompatActivity {
 //        String[] parts3 = user31.split("\\:"); // escape .
 
 
-        Pattern pattern3 = Pattern.compile(":");
-        Matcher matcher3 = pattern3.matcher(user31);
-        if (matcher3.find()) {
-            parts3[0] = user31.substring(0, matcher3.start());
-            parts3[1] = user31.substring(matcher3.end());
-        }
+//        Pattern pattern3 = Pattern.compile(":");
+//        Matcher matcher3 = pattern3.matcher(user31);
+//        if (matcher3.find()) {
+//            parts3[0] = user31.substring(0, matcher3.start());
+//            parts3[1] = user31.substring(matcher3.end());
+//        }
 
         CharSequence user4=savedInstanceState.getCharSequence("user4");
         tv[3].setText(user4);
@@ -274,12 +345,12 @@ public class Form extends AppCompatActivity {
 //        String[] parts4 = user41.split("\\:"); // escape .
 
 
-        Pattern pattern4 = Pattern.compile(":");
-        Matcher matcher4 = pattern4.matcher(user41);
-        if (matcher4.find()) {
-            parts4[0] = user41.substring(0, matcher4.start());
-            parts4[1] = user41.substring(matcher4.end());
-        }
+//        Pattern pattern4 = Pattern.compile(":");
+//        Matcher matcher4 = pattern4.matcher(user41);
+//        if (matcher4.find()) {
+//            parts4[0] = user41.substring(0, matcher4.start());
+//            parts4[1] = user41.substring(matcher4.end());
+//        }
 
 
         CharSequence user5=savedInstanceState.getCharSequence("user5");
@@ -287,14 +358,14 @@ public class Form extends AppCompatActivity {
         String user51=user5.toString();
 //        String[] parts5 = user51.split("\\:"); // escape .
 
-        Pattern pattern5 = Pattern.compile(":");
-        Matcher matcher5 = pattern5.matcher(user51);
-        if (matcher5.find()) {
-            parts5[0] = user51.substring(0, matcher5.start());
-            parts5[1] = user51.substring(matcher5.end());
-        }
+//        Pattern pattern5 = Pattern.compile(":");
+//        Matcher matcher5 = pattern5.matcher(user51);
+//        if (matcher5.find()) {
+//            parts5[0] = user51.substring(0, matcher5.start());
+//            parts5[1] = user51.substring(matcher5.end());
+//        }
 
-        Toast.makeText(Form.this,parts[0]+" "+parts2[0]+" "+parts3[0]+" "+parts4[0]+" "+parts5[0],Toast.LENGTH_SHORT).show();
+    //    Toast.makeText(Form.this,parts[0]+" "+parts2[0]+" "+parts3[0]+" "+parts4[0]+" "+parts5[0],Toast.LENGTH_SHORT).show();
 //        int success=0;
 //        for(int m=0;m<5;m++)
 //        {

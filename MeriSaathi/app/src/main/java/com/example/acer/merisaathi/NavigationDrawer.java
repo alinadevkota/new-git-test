@@ -36,7 +36,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class NavigationDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener  {
-    Database db;
+   // Database db;
 
     User[] trusted=new User[10];
 
@@ -65,12 +65,12 @@ public class NavigationDrawer extends AppCompatActivity
         setContentView(R.layout.activity_navigation_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        db =new Database(this);
-        for (int i=0;i<5;i++)
-        {
-            int my=i+1;
-            trusted[i]=db.getdata(my);
-        }
+       // db =new Database(this);
+//        for (int i=0;i<5;i++)
+//        {
+//            int my=i+1;
+//            trusted[i]=db.getdata(my);
+//        }
         Button b1=(Button) findViewById(R.id.Navigation_b1);
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
