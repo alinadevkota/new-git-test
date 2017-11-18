@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content">
 
                 <AutoCompleteTextView
-                    android:id="@+id/firstname"
+                    android:id="@+id/form_firstname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="First Name"
@@ -47,14 +47,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/lastname"
+                <AutoCompleteTextView
+                    android:id="@+id/form_lastname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Last name"
-                    android:imeActionId="@+id/login"
-                    android:imeActionLabel="Sign In"
-                    android:imeOptions="actionUnspecified"
+                    android:hint="Last Name"
                     android:inputType="text"
                     android:maxLines="1"
                     android:singleLine="true" />
@@ -70,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:hint="select date"
                     android:id="@+id/form_datetv"
-                    android:textSize="25sp"/>
+                    android:textSize="20sp"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -84,21 +81,21 @@
             <RadioGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/security_service_form_rg1"
-                android:checkedButton="@+id/security_service_form_rb2"
+                android:id="@+id/form_rg1"
+                android:checkedButton="@+id/form_rb2"
                 android:orientation="horizontal">
                 <RadioButton
-                    android:id="@+id/security_service_form_rb1"
+                    android:id="@+id/form_rb1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="male"/>
                 <RadioButton
-                    android:id="@+id/security_service_form_rb2"
+                    android:id="@+id/form_rb2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="female"/>
                 <RadioButton
-                    android:id="@+id/security_service_form_rb3"
+                    android:id="@+id/form_rb3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="others"/>
@@ -116,7 +113,7 @@
                     android:imeActionId="@+id/login"
                     android:imeActionLabel="Sign In"
                     android:imeOptions="actionUnspecified"
-                    android:inputType="text"
+                    android:inputType="numberDecimal"
                     android:maxLines="1"
                     android:singleLine="true" />
 
@@ -126,14 +123,14 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/averagecycledays"
+                    android:id="@+id/form_averageperiodcycle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="enter average cycle completion days"
                     android:imeActionId="@+id/login"
                     android:imeActionLabel="Sign In"
                     android:imeOptions="actionUnspecified"
-                    android:inputType="text"
+                    android:inputType="numberDecimal"
                     android:maxLines="1"
                     android:singleLine="true" />
 
@@ -143,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:hint="select last period date"
                 android:id="@+id/form_datetv2"
-                android:textSize="25sp"/>
+                android:textSize="20sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -153,7 +150,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="select trusted contacts:"
                     android:textSize="25sp"
+                    android:textColor="#000"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
                     android:id="@+id/form_contacts1"
                     android:hint="select contact"/>
                 <TextView
@@ -199,7 +202,7 @@
         </LinearLayout>
 
 
-<!--</LinearLayout>-->
+
     </ScrollView>
 
 

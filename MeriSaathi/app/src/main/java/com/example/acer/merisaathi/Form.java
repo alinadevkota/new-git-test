@@ -3,7 +3,9 @@ package com.example.acer.merisaathi;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -13,8 +15,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Calendar;
@@ -34,6 +38,8 @@ public class Form extends AppCompatActivity {
     int year1,month1,day1,year,month,day;
     static  final int Dialog_ID=0;
     TextView[] tv=new TextView[5];
+   AutoCompleteTextView firstname,lastname;
+    EditText avgPdays,avgPcycle;
    public static int i=-1;
     String[] names=new String[5];
     String[] numbers=new String[5];
@@ -54,6 +60,10 @@ public class Form extends AppCompatActivity {
         month=cal.get(Calendar.MONTH);
         day=cal.get(Calendar.DAY_OF_MONTH);
         showDialogOnClick();
+        firstname=(AutoCompleteTextView) findViewById(R.id.form_firstname);
+        lastname=(AutoCompleteTextView) findViewById(R.id.form_lastname);
+        avgPdays=(EditText) findViewById(R.id.form_averageperiodays);
+        avgPcycle=(EditText) findViewById(R.id.form_averageperiodcycle);
 
 
         tvdate=(TextView)findViewById(R.id.form_datetv);
@@ -96,6 +106,34 @@ public class Form extends AppCompatActivity {
 //                user[3].name = parts4[1];
 //                user[4].number= parts5[0];
 //                user[4].name = parts5[1];
+                SharedPreferences formPreference = getSharedPreferences("form",MODE_PRIVATE);
+                SharedPreferences.Editor editor = formPreference.edit();
+                editor.clear();
+                String fname= String.valueOf(firstname.getText());
+                String lname=String.valueOf(lastname.getText());
+                String dob= (String) tvdate.getText();
+                String perioddate=(String) tvperiod.getText();
+                String periodDays= String.valueOf(avgPdays.getText());
+                String periodCycle= String.valueOf(avgPcycle.getText());
+                String contact1= (String) tv[0].getText();
+                String contact5= (String) tv[4].getText();
+                String contact2= (String) tv[1].getText();
+                String contact3= (String) tv[2].getText();
+                String contact4= (String) tv[3].getText();
+
+                editor.putString("firstname",fname);
+                editor.putString("lastname",lname);
+                editor.putString("DOB",dob);
+                editor.putString("periodDays",periodDays);
+                editor.putString("periodDate",perioddate);
+                editor.putString("periodCycle",periodCycle);
+                editor.putString("contacts1",contact1);
+                editor.putString("contacts2",contact2);
+                editor.putString("contacts3",contact3);
+                editor.putString("contacts4",contact4);
+                editor.putString("contacts5",contact5);
+                editor.commit();
+
                 Intent intent = new Intent(Form.this, NavigationDrawer.class);
                 startActivity(intent);
             }
@@ -205,6 +243,42 @@ public class Form extends AppCompatActivity {
         }
     };
 
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SharedPreferences formPreference = getSharedPreferences("form",MODE_PRIVATE);
+        SharedPreferences.Editor editor = formPreference.edit();
+        editor.clear();
+        String fname= String.valueOf(firstname.getText());
+        String lname=String.valueOf(lastname.getText());
+        String dob= (String) tvdate.getText();
+        String perioddate=(String) tvperiod.getText();
+        String periodDays= String.valueOf(avgPdays.getText());
+        String periodCycle= String.valueOf(avgPcycle.getText());
+        String contact1= (String) tv[0].getText();
+        String contact5= (String) tv[4].getText();
+        String contact2= (String) tv[1].getText();
+        String contact3= (String) tv[2].getText();
+        String contact4= (String) tv[3].getText();
+
+        editor.putString("firstname",fname);
+        editor.putString("lastname",lname);
+        editor.putString("DOB",dob);
+        editor.putString("periodDays",periodDays);
+        editor.putString("periodDate",perioddate);
+        editor.putString("periodCycle",periodCycle);
+        editor.putString("contacts1",contact1);
+        editor.putString("contacts2",contact2);
+        editor.putString("contacts3",contact3);
+        editor.putString("contacts4",contact4);
+        editor.putString("contacts5",contact5);
+        editor.commit();
+
+        // Commit the edits!
+      //editor.apply();
+
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

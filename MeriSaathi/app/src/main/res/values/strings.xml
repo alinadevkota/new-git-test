@@ -15,5 +15,11 @@
     <string name="first_reply">I understand your problem alina. i can do nothing.</string>
     <string name="second_reply">I am saloni sikha. I m going to be given treat bd your problem alina. i can do nothind your problem alina. i can do nothind your problem alina. i can do nothind your problem alina. i can do nothind your problem alina. i can do nothind your problem alina. i can do nothind your problem alina. i can do nothind your problem alina. i can do nothind your problem alina. i can do nothind your problem alina. i can do nothind your problem alina. i can do nothind your problem alina. i can do nothind your problem alina. i can do nothind your problem alina. i can do nothind your problem alina. i can do nothind your problem alina. i can do nothiny alina and spandan today</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_cycle_tracker">CycleTracker</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_cycle_tracker2">CycleTracker2</string>
 
 </resources>

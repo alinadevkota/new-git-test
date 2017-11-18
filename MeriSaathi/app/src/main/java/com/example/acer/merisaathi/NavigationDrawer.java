@@ -4,6 +4,7 @@ import android.*;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -65,6 +66,11 @@ public class NavigationDrawer extends AppCompatActivity
         setContentView(R.layout.activity_navigation_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        SharedPreferences formPreference = getSharedPreferences("form",MODE_PRIVATE);
+
+
+        String fname=formPreference.getString("firstname","");
+        Toast.makeText(NavigationDrawer.this,fname,Toast.LENGTH_SHORT).show();
        // db =new Database(this);
 //        for (int i=0;i<5;i++)
 //        {
@@ -78,13 +84,20 @@ public class NavigationDrawer extends AppCompatActivity
                // Intent intent=new Intent(NavigationDrawer.this,Emergency_Button.class);
                // startActivity(intent);
 
-                for (int i=0;i<5;i++)
-                {
-                    Toast.makeText(NavigationDrawer.this, trusted[i].number, Toast.LENGTH_LONG).show();
-                }
+//                for (int i=0;i<5;i++)
+//                {
+//                    Toast.makeText(NavigationDrawer.this, trusted[i].number, Toast.LENGTH_LONG).show();
+//                }
                // Toast.makeText(NavigationDrawer.this, url, Toast.LENGTH_LONG).show();
                 SmsManager smsManager = SmsManager.getDefault();
-               //smsManager.sendTextMessage(trusted[0].number, null, "Your Friend is in need. See her location at "+ url, null, null);
+                String numbers[] = {"9843538576", "9860167527"};
+
+                for(String number : numbers) {
+
+                   // smsManager.sendTextMessage(number, null, "Help! I am in need. See my location at "+ url, null, null);
+                }
+
+                Toast.makeText(NavigationDrawer.this,"sms sent",Toast.LENGTH_SHORT).show();
             }
         });
         FloatingActionButton b2=(FloatingActionButton) findViewById(R.id.Navigation_b2);
@@ -113,18 +126,19 @@ public class NavigationDrawer extends AppCompatActivity
         });
 
         Button b5=(Button) findViewById(R.id.Navigation_b5);
-        b5.setOnClickListener(new View.OnClickListener() {
+        Button b6=(Button)findViewById(R.id.Navigation_b6);
+        b6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(NavigationDrawer.this,MapsActivity.class);
                 startActivity(intent);
             }
         });
-        Button b6=(Button)findViewById(R.id.Navigation_b6);
-        b6.setOnClickListener(new View.OnClickListener() {
+
+        b5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent= new Intent(NavigationDrawer.this,Calendar.class);
+                Intent intent= new Intent(NavigationDrawer.this,CycleTracker.class);
                 startActivity(intent);
             }
         });
